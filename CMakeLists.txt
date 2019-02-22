@@ -141,7 +141,13 @@ set(XEUS_SOURCES
 # Output
 # ======
 
-add_library(xeus SHARED ${XEUS_SOURCES} ${XEUS_HEADERS})
+option(BUILD_SHARED_LIBS "Build shared instead of static libraries." ON)
+if (BUILD_SHARED_LIBS)
+    message("Build shared libs")
+    add_library(xeus SHARED ${XEUS_SOURCES} ${XEUS_HEADERS})
+else ()
+    add_library(xeus STATIC ${XEUS_SOURCES} ${XEUS_HEADERS})
+endif ()
 
 if (APPLE)
     set_target_properties(xeus PROPERTIES
@@ -225,6 +231,10 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU"
     endif()
     message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 endif()
+
+if (NOT BUILD_SHARED_LIBS)
+    target_compile_definitions(xeus PUBLIC XEUS_STATIC_LIB)
+endif ()
 
 if(MSVC)
     target_compile_definitions(xeus PUBLIC -DNOMINMAX)
