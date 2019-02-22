@@ -45,8 +45,8 @@ if(CMAKE_CXX_COMPILER_ID MATCHES MSVC)
     set(CMAKE_EXE_LINKER_FLAGS /MANIFEST:NO)
 endif()
 
-set(_build_shared_libs ${BUILD_SHARED_LIBS})
-set(BUILD_SHARED_LIBS OFF)
+#set(_build_shared_libs ${BUILD_SHARED_LIBS})
+#set(BUILD_SHARED_LIBS OFF)
 
 if(DOWNLOAD_GTEST OR GTEST_SRC_DIR)
     if(DOWNLOAD_GTEST)
@@ -80,7 +80,7 @@ else()
     find_package(GTest REQUIRED)
 endif()
 
-set(BUILD_SHARED_LIBS ${_build_shared_libs})
+#set(BUILD_SHARED_LIBS ${_build_shared_libs})
 
 find_package(Threads)
 
