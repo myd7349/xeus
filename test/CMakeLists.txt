@@ -59,7 +59,7 @@ if(DOWNLOAD_GTEST OR GTEST_SRC_DIR)
     if(result)
         message(FATAL_ERROR "CMake step for googletest failed: ${result}")
     endif()
-    execute_process(COMMAND ${CMAKE_COMMAND} --build .
+    execute_process(COMMAND ${CMAKE_COMMAND} --build . -DBUILD_SHARED_LIBS=OFF
                     RESULT_VARIABLE result
                     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
     if(result)
