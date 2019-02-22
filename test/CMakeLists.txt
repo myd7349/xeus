@@ -45,6 +45,9 @@ if(CMAKE_CXX_COMPILER_ID MATCHES MSVC)
     set(CMAKE_EXE_LINKER_FLAGS /MANIFEST:NO)
 endif()
 
+set(_build_shared_libs ${BUILD_SHARED_LIBS})
+set(BUILD_SHARED_LIBS OFF)
+
 if(DOWNLOAD_GTEST OR GTEST_SRC_DIR)
     if(DOWNLOAD_GTEST)
         # Download and unpack googletest at configure time
@@ -53,7 +56,7 @@ if(DOWNLOAD_GTEST OR GTEST_SRC_DIR)
         # Copy local source of googletest at configure time
         configure_file(copyGTest.cmake.in googletest-download/CMakeLists.txt)
     endif()
-    execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" -D "DBUILD_SHARED_LIBS=OFF" .
+    execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
                     RESULT_VARIABLE result
                     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
     if(result)
@@ -76,6 +79,8 @@ if(DOWNLOAD_GTEST OR GTEST_SRC_DIR)
 else()
     find_package(GTest REQUIRED)
 endif()
+
+set(BUILD_SHARED_LIBS ${_build_shared_libs})
 
 find_package(Threads)
 
