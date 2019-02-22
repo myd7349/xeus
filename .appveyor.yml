@@ -30,5 +30,7 @@ install:
   - nmake
 
 build_script:
+  - dir /b
+  - dir /b test
   - .\test\test_xeus
   - py.test test\test_echo_kernel.py
