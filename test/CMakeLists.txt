@@ -53,13 +53,13 @@ if(DOWNLOAD_GTEST OR GTEST_SRC_DIR)
         # Copy local source of googletest at configure time
         configure_file(copyGTest.cmake.in googletest-download/CMakeLists.txt)
     endif()
-    execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+    execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" -DBUILD_SHARED_LIBS=OFF .
                     RESULT_VARIABLE result
                     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
     if(result)
         message(FATAL_ERROR "CMake step for googletest failed: ${result}")
     endif()
-    execute_process(COMMAND ${CMAKE_COMMAND} --build . -DBUILD_SHARED_LIBS=OFF
+    execute_process(COMMAND ${CMAKE_COMMAND} --build .
                     RESULT_VARIABLE result
                     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
     if(result)
